@@ -1,6 +1,6 @@
 # KieunamApp
 React Native Application
-This is my first react native app
+<br/>This is my first react native app
 learning react native
 
 # HOW TO RUN
