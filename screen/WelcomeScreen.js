@@ -1,10 +1,32 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Text,View,Image,ImageBackground,TouchableOpacity} from 'react-native';
-import { Sum2Number, multiply2Number, subtract2Number } from '../utilies/calculation';
+import { Sum2Number, multiply2Number, subtract2Number } from '../ulities/calculator';
 import {images,icons} from '../constants';
+import {Buttons} from '../components';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 function WelcomeScreen(props){
     const {appname}=props
+    const[chooseOptions,setChooseOptions] = useState([
+        {
+            name: 'đăng nhập',
+ 
+        },
+        {
+            name: 'đăng ký',
+
+        },
+        {
+            name: 'tra cứu thông tin',
+
+        },
+        {
+            name: 'liên hệ',
+ 
+        },
+        
+    ])
     return <View style={{
         backgroundColor: 'black',
         flex:1,
@@ -20,7 +42,7 @@ function WelcomeScreen(props){
         <View style={{
             flex: 20,
             // backgroundColor: '#cccc',
-        }}>
+            }}>
                 <View style={{
                     alignItems: 'center',
                     justifyContent: 'flex-start',
@@ -33,150 +55,83 @@ function WelcomeScreen(props){
                         maxWidth: 35,
                         maxHeight: 50,
                         marginHorizontal: 20,
-                        tintColor:'white'
+                        tintColor: 'white'
 
                     }}
                         source={icons.flame} />
                     <Text style={{
                         color: 'white',
                         fontSize: 25,
-                        textTransform:'uppercase',
-                        // paddingLeft:10,
-                        fontWeight:'800'
+                        fontWeight: '800'
 
                     }}>
 
-                        {appname}
+                        {appname.toUpperCase()}
 
                     </Text>
                     <Text style={{ flex: 1 }}></Text>
-                    <Image style={{
-                        maxWidth: 30,
-                        maxHeight: 30,
-                        marginRight: 10,
-                        tintColor: 'white',
-                        // fontWeight:'900'
-                    }}
+                    <Icon name={'ios-information-circle-outline'} size={30} style={{
+                        marginRight: 15,
+                        color: 'white',
+                    }}></Icon>
 
-                        source={icons.information} />
                 </View>
         </View>     
         
-        <View 
-        style={{
-            flex:20,
-            justifyContent:'center',
-            alignItems:'center',
-            width:'100%',
-            //more styles here
-        }}
-        >
-            <Text style={{marginBottom:10,color:'white'}}>
-                Welcome to 
-            </Text>
-            <Text style={{marginBottom:10,color:'white',fontSize:20,fontWeight:'900'}}>
-                {appname}
-            </Text>
-            <Text style={{marginBottom:10,color:'white'}}>
-                Vui lòng lựa chọn dịch vụ
-            </Text>
-        </View>
-        <View
-        style={{
-            flex:40,
-            
-            //more styles here
-        }}
-        >
-            <TouchableOpacity style={{
-                borderColor : 'white',
-                height: 45,
-                borderRadius: 6,
-                borderWidth:1,
-                marginHorizontal:23,
-                justifyContent:'center',
-                alignItems:'center',
-                
-            }}>
-                <Text style={{
-                    color:'white',
-                    textTransform:'capitalize'
-                }}>
-                    đăng nhập
+            <View
+                style={{
+                    flex: 20,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                    //more styles here
+                }}
+            >
+                <Text style={{ marginBottom: 10, color: 'white' }}>
+                    Welcome to
                 </Text>
-
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{
-                borderColor : 'white',
-                height: 40,
-                borderRadius: 6,
-                borderWidth:1,
-                marginVertical:10,
-                marginHorizontal:23,
-                justifyContent:'center',
-                alignItems:'center',
-                
-            }}>
-                <Text style={{
-                    color:'white',
-                    textTransform:'capitalize'
-                }}>
-                    đăng ký tài khoản
+                <Text style={{ marginBottom: 10, color: 'white', fontSize: 20, fontWeight: '900' }}>
+                    {appname}
                 </Text>
-
-            </TouchableOpacity>
-            
-            <TouchableOpacity style={{
-                borderColor : 'white',
-                height: 40,
-                borderRadius: 6,
-                borderWidth:1,
-                marginBottom:10,
-                marginHorizontal:23,
-                justifyContent:'center',
-                alignItems:'center',
-                
-            }}>
-                <Text style={{
-                    color:'white',
-                    textTransform:'capitalize'
-                }}>
-                    tra cứu dịch vụ
+                <Text style={{ marginBottom: 10, color: 'white' }}>
+                    Vui lòng lựa chọn dịch vụ
                 </Text>
+            </View>
+            <View
+                style={{
+                    flex: 40,
 
-            </TouchableOpacity>
-            
-            <TouchableOpacity style={{
-                borderColor : 'white',
-                height: 40,
-                borderRadius: 6,
-                borderWidth:1,
-                marginBottom:10,
-                marginHorizontal:23,
-                justifyContent:'center',
-                alignItems:'center',
-                
-            }}>
-                <Text style={{
-                    color:'white',
-                    textTransform:'capitalize'
-                }}>
-                    thoát
-                </Text>
+                    //more styles here
+                }}
+            >
+                {chooseOptions.map(chooseOption => <Buttons
+                    onPress={() => {
+                        let newchooseOptions = chooseOptions.map(eachchooseOption =>{
+                            return {
+                                ...eachchooseOption,
+                                isSelected : eachchooseOption.name == chooseOption.name,
+                                // eachchooseOption == chooseOption[0].name ?  alert('1') : null
+                            }
+                            
+                        })
+                        setChooseOptions(newchooseOptions);
+                        //more function here...
+                    }}
+                    title={chooseOption.name}
+                    isSelected={chooseOption.isSelected}
+                />)}
+               
+            </View>
+            <View
+                style={{
+                    flex: 20,
+                    //more styles here
+                }}
+            >
+                <Buttons title={'thoát'}></Buttons>
+            </View>
 
-            </TouchableOpacity>
-        </View>
-        <View
-        style={{
-            flex:20,
-            //more styles here
-        }}
-        >
-           
-        </View>
-
-       </ImageBackground>
+        </ImageBackground>
     </View>
 }
 
