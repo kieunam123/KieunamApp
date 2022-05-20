@@ -10,11 +10,11 @@ function WelcomeScreen(props){
     const {appname}=props
     const[chooseOptions,setChooseOptions] = useState([
         {
-            name: 'đăng nhập',
+            name: 'khách hàng',
  
         },
         {
-            name: 'đăng ký',
+            name: 'doanh nghiệp',
 
         },
         {
@@ -27,6 +27,7 @@ function WelcomeScreen(props){
         },
         
     ])
+
     return <View style={{
         backgroundColor: 'black',
         flex:1,
@@ -122,15 +123,46 @@ function WelcomeScreen(props){
                 />)}
                
             </View>
+
             <View
                 style={{
                     flex: 20,
                     //more styles here
-                }}
-            >
-                <Buttons title={'thoát'}></Buttons>
-            </View>
+                }}>
 
+                <Buttons style={{}} title={'đăng nhập'} onPress={() => {
+                    return {
+                        //function here...
+                    }
+                }} />
+
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+
+                    //more styles here...
+                }}>
+                    
+                    <Text style={{ color: 'white', paddingTop: 10 }}>
+                        Chưa có tài khoản?
+                    </Text>
+
+                    <TouchableOpacity onPress={() => {
+                        return {
+                            //function here...
+                        }}}>
+                        <Text style={{
+                            color: 'white',
+                            textTransform: 'capitalize',
+                            textDecorationLine: 'underline',
+                            paddingTop: 10,
+                            //more styles here...
+                        }}>Đăng ký</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
         </ImageBackground>
     </View>
 }
