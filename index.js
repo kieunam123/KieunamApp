@@ -5,7 +5,7 @@
 import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
-import {WelcomeScreen,Login} from './screen';
+import {WelcomeScreen,Login, FoodItem, FoodList} from './screen';
 import React from "react";
 import {Text} from "react-native"
 let Phone=[
@@ -26,7 +26,7 @@ let Phone=[
     },
 ]
 
-AppRegistry.registerComponent(appName, () => ()=><Login
+AppRegistry.registerComponent(appName, () => ()=><FoodList
 
     x={5}
     y={223131}

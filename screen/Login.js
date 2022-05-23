@@ -1,16 +1,21 @@
 import React,{useState} from 'react';
-import {Text,View,Image,ImageBackground,TouchableOpacity,TextInput,KeyboardAvoidingView,Keyboard} from 'react-native';
+import {onChangeText,Text,View,Image,ImageBackground,TouchableOpacity,TextInput,KeyboardAvoidingView,Keyboard} from 'react-native';
 import { Sum2Number, multiply2Number, subtract2Number } from '../ulities/calculator';
 import {images,icons,FormatFont} from '../constants';
 import {Buttons} from '../components';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useEffect } from 'react/cjs/react.production.min';
+import { isValidEmail, isValidPassword } from '../ulities/Validation';
+import ensureNativeModuleAvailable from 'react-native-vector-icons/dist/lib/ensure-native-module-available';
 
 function Login(props){
-    const [validEmail,unvalidEmail] = useState('')
-    const [validPassword,unvalidPassword] = useState('')
+    const [errorEmail,setErrorEmail] = useState('')
+    const [errorPassword,setErrorPassword] = useState('')
     const [Email,setEmail] = useState('')
     const [Password,setPassword] = useState('')
+    const isValidationOK= () => Email.length > 0 && Password.length > 0
+                            && isValidEmail(Email) == true
+                            && isValidPassword(Password) == true
      //let & const here
     return <View style={{
         flex:1,
@@ -52,6 +57,11 @@ function Login(props){
                     }}>Email:</Text>
 
                     <TextInput
+                        onChangeText={(text)=>{
+                            setErrorEmail(isValidEmail(text) == true ?
+                             ' ' : 'Email not in correct format')
+                            setEmail(text)
+                        }}
                         placeholder='example@gmail.com'
                         placeholderTextColor={'white'}
                         style={{
@@ -63,6 +73,7 @@ function Login(props){
                             borderColor: 'white'
                         }}
                     />
+                    <Text style={{color:'rgb(236, 100, 100)',fontSize:FormatFont.normal}}>{errorEmail}</Text>
 
                     <Text style={{
                         textTransform: 'capitalize',
@@ -73,6 +84,11 @@ function Login(props){
                     }}>Password:</Text>
 
                     <TextInput
+                    onChangeText={(text)=>{
+                        setErrorPassword(isValidPassword(text)==true ?
+                        '':'7 to 15 characters which contain only characters, numeric digits, underscore and first character must be a letter')
+                        setPassword(text)
+                    }}
                         placeholder='Enter your password'
                         secureTextEntry={true}
                         placeholderTextColor={'white'}
@@ -86,8 +102,11 @@ function Login(props){
                         }}>
 
                     </TextInput>
+                    <Text style={{color:'rgb(236, 100, 100)',fontSize:FormatFont.normal}}>{errorPassword}</Text>
 
-                    <TouchableOpacity onPress={() => {
+                    <TouchableOpacity 
+                    disabled={isValidationOK()==false}
+                    onPress={() => {
                         return {
                             //function here...
                         }
