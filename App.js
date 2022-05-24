@@ -1,112 +1,80 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Hello">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="App deploy succsessful by KieuNam">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug2">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+import React, { useState } from 'react';  
+import {  
+  StyleSheet,  
+  View,  
+  Text,  
+  TouchableHighlight,  
+} from 'react-native';  
+  
+import { authorize } from 'react-native-app-auth';  
+  
+const AuthConfig = {  
+  appId: "2b935271-cf4c-4517-b2c4-df2a779039b4",  
+  tenantId: "a0fa61c2-f75a-48c9-8351-f224da1fd515",  
+  appScopes: [  
+    'openid',  
+    'offline_access',  
+    'profile',  
+    'User.Read',  
+  ],  
+};  
+  
+const config = {  
+  warmAndPrefetchChrome: true,  
+  clientId: AuthConfig.appId,  
+  redirectUrl: Platform.OS === 'ios' ? 'urn:ietf:wg:oauth:2.0:oob' : 'mlogin://react-native-auth',  
+  scopes: AuthConfig.appScopes,  
+  additionalParameters: { prompt: 'select_account' },  
+  serviceConfiguration: {  
+    authorizationEndpoint: 'https://login.microsoftonline.com/' + AuthConfig.tenantId + '/oauth2/v2.0/authorize',  
+    tokenEndpoint: 'https://login.microsoftonline.com/' + AuthConfig.tenantId + '/oauth2/v2.0/token',  
+  },  
+};  
+  
+const App: () => React$Node = () => {  
+  const [result, setResult] = useState({});  
+  
+  loginWithOffice365 = async () => {  
+    let tempResult = await authorize(config);  
+    console.log(tempResult);  
+    setResult(tempResult);  
+  };  
+  return (  
+    <>  
+      <View style={styles.container}>  
+        <TouchableHighlight  
+          style={[styles.buttonContainer, styles.loginButton]}  
+          onPress={() => loginWithOffice365()}>  
+          <Text style={styles.loginText}>Login with Office365</Text>  
+        </TouchableHighlight>  
+        <Text>{result.accessToken ? "Logged In" : "Error"}</Text>          
+      </View>  
+    </>  
+  );  
+};  
+  
+const styles = StyleSheet.create({  
+  container: {  
+    flex: 1,  
+    justifyContent: 'center',  
+    alignItems: 'center',  
+    backgroundColor: '#DCDCDC',  
+  },  
+  buttonContainer: {  
+    height: 45,  
+    flexDirection: 'row',  
+    justifyContent: 'center',  
+    alignItems: 'center',  
+    marginBottom: 20,  
+    width: 250,  
+    borderRadius: 30,  
+  },  
+  loginButton: {  
+    backgroundColor: '#3659b8',  
+  },  
+  loginText: {  
+    color: 'white',  
+  },  
+});  
+  
+export default App;  

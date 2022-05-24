@@ -27,7 +27,7 @@ let Phone=[
     },
 ]
 
-AppRegistry.registerComponent(appName, () => ()=><Profile
+AppRegistry.registerComponent(appName, () => ()=><App
 
     x={5}
     y={223131}
