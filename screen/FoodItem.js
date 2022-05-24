@@ -1,19 +1,29 @@
 import React,{useState} from 'react';
 import {StyleSheet,onChangeText,Text,View,Image,ImageBackground,TouchableOpacity,TextInput,KeyboardAvoidingView,Keyboard} from 'react-native';
-import {images,icons,FormatFont} from '../constants';
+// import { Colors } from 'react-native/Libraries/NewAppScreen';
+import {images,icons,FormatFont,colors} from '../constants';
+
 // import FoodList from './FoodList';
 
 export default function FoodItem(props){
     let {name,img,status,price}=props.food
+    const {onPress} = props
     return(
-        <View style={styles.container}>
-            
+        <TouchableOpacity onPress={onPress}
+         style={styles.container}>
             <Image source={{uri:img}} style={styles.img}/>
-            <View style={styles.name}><Text style={styles.name} >{name}</Text></View>
-            <Text style={styles.status}>{status}</Text>
-            <Text>{price}</Text>
-        </View>
+            <View style={styles.content}>
+                <Text style={styles.name} >{name}</Text>
+                <Text style={{flex:1,color:_getColorFromStatus(status),textTransform:'capitalize'}}>{status}</Text>
+                <Text>{price}VNĐ</Text>
+            </View>
+        </TouchableOpacity>
     );
+}
+
+function _getColorFromStatus(status){
+    return status.toLowerCase().trim() == 'đang phục vụ' ? colors.success : 
+    (status.toLowerCase().trim() == 'hết món' ? colors.warning : colors.success) 
 }
 
 const styles = StyleSheet.create({
@@ -23,6 +33,13 @@ const styles = StyleSheet.create({
         height:150,
         paddingTop:20,
         paddingStart:10,
+    },
+
+    content:{
+        // flexDirection:'row',
+        maxHeight:145,
+        // paddingTop:5,
+        paddingBottom:35,
     },
 
     img:{
@@ -37,9 +54,4 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         fontSize:FormatFont.h3,
     },
-    status : {
-        flex:1,
-        
-    },
-
 })

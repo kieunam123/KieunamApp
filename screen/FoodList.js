@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {ScrollView,onChangeText,Text,View,Image,ImageBackground,TouchableOpacity,TextInput,KeyboardAvoidingView,Keyboard} from 'react-native';
+import {FlatList,ScrollView,onChangeText,Text,View,Image,ImageBackground,TouchableOpacity,TextInput,KeyboardAvoidingView,Keyboard} from 'react-native';
 import FoodItem from './FoodItem';
 export default function FoodList(props){
     const [foods, setFoods] = useState([
@@ -25,10 +25,15 @@ export default function FoodList(props){
 
     return (
         <View>
-            <ScrollView>
-                {foods.map(eachFood => <FoodItem food={eachFood} />
-                )}
-            </ScrollView>
+            <FlatList
+                data={foods}
+                renderItem={({ item }) => <FoodItem
+                onPress={()=>{
+                    alert(`You have pressed ${item.name}`)
+                }}
+                 food={item} key={item.name} />}
+                keyExtractor={eachFood => eachFood.name}
+            />
         </View>
     );
 }
