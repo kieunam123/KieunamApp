@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import {FlatList,ScrollView,onChangeText,Text,View,Image,ImageBackground,TouchableOpacity,TextInput,KeyboardAvoidingView,Keyboard} from 'react-native';
 import FoodItem from './FoodItem';
+// import users from '../respositories/users';
 export default function FoodList(props){
     const [foods, setFoods] = useState([
         {

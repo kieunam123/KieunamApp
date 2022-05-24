@@ -8,6 +8,7 @@ import {name as appName} from './app.json';
 import {WelcomeScreen,Login, FoodItem, FoodList} from './screen';
 import React from "react";
 import {Text} from "react-native"
+import Profile from './screen/Profile';
 let Phone=[
     {
         productName: 'iphone X',
@@ -26,7 +27,7 @@ let Phone=[
     },
 ]
 
-AppRegistry.registerComponent(appName, () => ()=><FoodList
+AppRegistry.registerComponent(appName, () => ()=><Profile
 
     x={5}
     y={223131}
