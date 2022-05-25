@@ -1,32 +1,34 @@
 import React,{useState} from 'react';
 import {Text,View,Image,ImageBackground,TouchableOpacity} from 'react-native';
 import { Sum2Number, multiply2Number, subtract2Number } from '../ulities/calculator';
-import {images,icons} from '../constants';
+import {images,icons, FormatFont} from '../constants';
 import {Buttons} from '../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
 function WelcomeScreen(props){
-    const {appname}=props
     const[chooseOptions,setChooseOptions] = useState([
         {
-            name: 'khách hàng',
+            name: 'options 1',
  
         },
         {
-            name: 'doanh nghiệp',
+            name: 'options 2',
 
         },
         {
-            name: 'tra cứu thông tin',
+            name: 'options 3',
 
         },
         {
-            name: 'liên hệ',
+            name: 'options 4',
  
         },
         
     ])
+
+    const {navigation,route} = props
+    const {navigate,goBack} = navigation
 
     return <View style={{
         backgroundColor: 'black',
@@ -63,11 +65,12 @@ function WelcomeScreen(props){
                     <Text style={{
                         color: 'white',
                         fontSize: 25,
-                        fontWeight: '800'
+                        fontWeight: '800',
+                        textTransform:'uppercase'
 
                     }}>
 
-                        {appname.toUpperCase()}
+                        kieunam
 
                     </Text>
                     <Text style={{ flex: 1 }}></Text>
@@ -91,8 +94,8 @@ function WelcomeScreen(props){
                 <Text style={{ marginBottom: 10, color: 'white' }}>
                     Welcome to
                 </Text>
-                <Text style={{ marginBottom: 10, color: 'white', fontSize: 20, fontWeight: '900' }}>
-                    {appname}
+                <Text style={{ marginBottom: 10, color: 'white', fontSize: 20, fontWeight: '900',fontSize:FormatFont.h3,textTransform:'uppercase' }}>
+                    kieunam
                 </Text>
                 <Text style={{ marginBottom: 10, color: 'white' }}>
                     Vui lòng lựa chọn dịch vụ
@@ -131,9 +134,7 @@ function WelcomeScreen(props){
                 }}>
 
                 <Buttons style={{}} title={'đăng nhập'} onPress={() => {
-                    return {
-                        //function here...
-                    }
+                    navigate('Login')
                 }} />
 
                 <View style={{

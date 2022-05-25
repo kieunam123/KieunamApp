@@ -1,5 +1,5 @@
 import {TouchableOpacity,Text} from 'react-native';
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import Icon from 'react-native-vector-icons/Octicons';
 
 function Buttons(props){
@@ -16,9 +16,9 @@ function Buttons(props){
         justifyContent:'center',
         alignItems:'center',
         flexDirection: 'row',
-        backgroundColor: isSelected==true ? '#33f2' : null
+        backgroundColor: isSelected==true ? '#3332' : null
     }}>
-        {isSelected==true&&<Icon name={'check-circle-fill'} size={20} style={{
+        {isSelected==true&&<Icon size={20} style={{
             color:'white',
             position:'absolute',
             left:10,}}/>}

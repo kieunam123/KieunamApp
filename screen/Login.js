@@ -9,14 +9,17 @@ import { isValidEmail, isValidPassword } from '../ulities/Validation';
 import ensureNativeModuleAvailable from 'react-native-vector-icons/dist/lib/ensure-native-module-available';
 
 function Login(props){
-    const [errorEmail,setErrorEmail] = useState('')
-    const [errorPassword,setErrorPassword] = useState('')
-    const [Email,setEmail] = useState('')
-    const [Password,setPassword] = useState('')
-    const isValidationOK= () => Email.length > 0 && Password.length > 0
-                            && isValidEmail(Email) == true
-                            && isValidPassword(Password) == true
-     //let & const here
+    const [errorEmail, setErrorEmail] = useState('')
+    const [errorPassword, setErrorPassword] = useState('')
+    const [Email, setEmail] = useState('')
+    const [Password, setPassword] = useState('')
+    const isValidationOK = () => Email.length > 0 && Password.length > 0
+        && isValidEmail(Email) == true
+        && isValidPassword(Password) == true
+    //nnavigate function
+    const { navigation, route } = props
+    const { navigate, goBack } = navigation
+    //main
     return <View style={{
         flex:1,
         //more style here...
@@ -107,9 +110,7 @@ function Login(props){
                     <TouchableOpacity 
                     disabled={isValidationOK()==false}
                     onPress={() => {
-                        return {
-                            //function here...
-                        }
+                        navigate('Tabs')
                     }} style={{
                         marginTop: 30,
                         alignSelf: 'center',
@@ -132,7 +133,7 @@ function Login(props){
 
             <View style={{
                 alignItems: 'center',
-                paddingTop: 490,
+                paddingTop: 455,
                 paddingHorizontal: 62,
                 position: 'absolute'
                 // backgroundColor:'green',
